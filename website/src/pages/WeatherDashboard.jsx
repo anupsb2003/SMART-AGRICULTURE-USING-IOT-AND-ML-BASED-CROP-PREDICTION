@@ -55,26 +55,37 @@ export default function WeatherDashboard() {
 
       /* HOURLY GRAPH (CURRENT TIME ±12 HOURS) */
 
-      const hourlyTimes = forecastData.data.hourly.time;
-      const hourlyTemps = forecastData.data.hourly.temperature_2m;
+      /* HOURLY GRAPH (FULL 24 HOURS FROM CURRENT TIME) */
 
-      const now = new Date();
+const hourlyTimes = forecastData.data.hourly.time;
+const hourlyTemps = forecastData.data.hourly.temperature_2m;
 
-      const hourlyData = hourlyTimes.map((time, i) => ({
-        dt: new Date(time).getTime() / 1000,
-        temp: hourlyTemps[i]
-      }));
+const hourlyData = hourlyTimes.map((time,i)=>({
+  dt: new Date(time).getTime()/1000,
+  temp: hourlyTemps[i]
+}));
 
-      const currentIndex = hourlyTimes.findIndex(t => {
-        const d = new Date(t);
-        return d.getHours() === now.getHours() &&
-               d.getDate() === now.getDate();
-      });
+/* find current hour */
 
-      const start = Math.max(0, currentIndex - 12);
-      const end = currentIndex + 12;
+const now = new Date();
 
-      setHourly(hourlyData.slice(start, end));
+const currentIndex = hourlyTimes.findIndex(t=>{
+  const d = new Date(t);
+  return d.getHours() === now.getHours() &&
+         d.getDate() === now.getDate();
+});
+
+/* take current + next 23 hours */
+
+let start = currentIndex;
+let end = currentIndex + 24;
+
+if(end > hourlyData.length){
+  end = hourlyData.length;
+  start = end - 24;
+}
+
+setHourly(hourlyData.slice(start,end));
 
     } catch (err) {
 
