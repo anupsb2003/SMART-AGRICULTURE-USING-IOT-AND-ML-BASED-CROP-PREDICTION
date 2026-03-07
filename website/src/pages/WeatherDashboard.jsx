@@ -7,24 +7,33 @@ export default function WeatherDashboard() {
 
   const API = import.meta.env.VITE_WEATHER_API;
 
-  const [city, setCity] = useState("Bangalore");
   const [weather, setWeather] = useState(null);
-  const [forecast, setForecast] = useState([]);
   const [hourly, setHourly] = useState([]);
+  const [time, setTime] = useState(new Date());
+
+
+  /* LIVE CLOCK */
 
   useEffect(() => {
-    loadWeather("Bangalore");
+
+    const timer = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+
   }, []);
 
 
-  const loadWeather = async (cityName) => {
+
+  /* LOAD WEATHER */
+
+  const loadWeather = async (city) => {
 
     try {
 
-      /* CURRENT WEATHER (OpenWeather) */
-
       const current = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${API}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API}`
       );
 
       setWeather(current.data);
@@ -32,218 +41,201 @@ export default function WeatherDashboard() {
       const lat = current.data.coord.lat;
       const lon = current.data.coord.lon;
 
-
-      /* OPEN-METEO FORECAST */
-
-      const forecastData = await axios.get(
-        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min&hourly=temperature_2m&timezone=auto`
+      const forecast = await axios.get(
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m&timezone=auto`
       );
 
 
-      /* 7 DAY FORECAST */
+      const times = forecast.data.hourly.time;
+      const temps = forecast.data.hourly.temperature_2m;
 
-      const daily = forecastData.data.daily;
+      const now = new Date();
 
-      const dailyForecast = daily.time.map((date, i) => ({
-        date: date,
-        max: daily.temperature_2m_max[i],
-        min: daily.temperature_2m_min[i]
+
+      /* Convert API data */
+
+      const hourlyData = times.map((t, i) => ({
+        dt: new Date(t).getTime() / 1000,
+        temp: temps[i]
       }));
 
-      setForecast(dailyForecast);
+
+      /* Find index of current hour */
+
+      const currentIndex = times.findIndex(t => {
+
+        const d = new Date(t);
+
+        return (
+          d.getHours() === now.getHours() &&
+          d.getDate() === now.getDate()
+        );
+
+      });
 
 
-      /* HOURLY GRAPH (CURRENT TIME ±12 HOURS) */
+      /* Last 24 hours ending now */
 
-      /* HOURLY GRAPH (FULL 24 HOURS FROM CURRENT TIME) */
+      let start = currentIndex - 23;
 
-const hourlyTimes = forecastData.data.hourly.time;
-const hourlyTemps = forecastData.data.hourly.temperature_2m;
+      if (start < 0) start = 0;
 
-const hourlyData = hourlyTimes.map((time,i)=>({
-  dt: new Date(time).getTime()/1000,
-  temp: hourlyTemps[i]
-}));
+      const last24 = hourlyData.slice(start, currentIndex + 1);
 
-/* find current hour */
-
-const now = new Date();
-
-const currentIndex = hourlyTimes.findIndex(t=>{
-  const d = new Date(t);
-  return d.getHours() === now.getHours() &&
-         d.getDate() === now.getDate();
-});
-
-/* take current + next 23 hours */
-
-let start = currentIndex;
-let end = currentIndex + 24;
-
-if(end > hourlyData.length){
-  end = hourlyData.length;
-  start = end - 24;
-}
-
-setHourly(hourlyData.slice(start,end));
+      setHourly(last24);
 
     } catch (err) {
 
       console.log(err);
-      alert("City not found");
 
     }
 
   };
 
 
-  const searchCity = () => {
-    if (city.trim() !== "") {
-      loadWeather(city);
-    }
-  };
+  /* INITIAL LOAD + AUTO UPDATE EVERY HOUR */
 
+  useEffect(() => {
 
-  const getIcon = (type) => {
+    loadWeather("Bangalore");
 
-    if (type === "Rain") return "🌧";
-    if (type === "Clouds") return "☁";
-    if (type === "Clear") return "☀";
-    if (type === "Thunderstorm") return "⛈";
-    if (type === "Snow") return "❄";
+    const interval = setInterval(() => {
 
-    return "🌤";
+      loadWeather("Bangalore");
 
-  };
+    }, 3600000); // 1 hour
+
+    return () => clearInterval(interval);
+
+  }, []);
+
 
 
   if (!weather) return null;
+
+
 
   return (
 
     <div className="dashboard">
 
-      {/* HEADER */}
+      <div className="main">
 
-      <div className="header">
+        {/* HEADER */}
 
-        <div className="location">
-          📍 {weather.name}, {weather.sys.country}
-        </div>
+        <div className="weatherHeader">
 
-        <div className="searchBar">
-
-          <input
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            placeholder="Search city..."
-          />
-
-          <button onClick={searchCity}>
-            Search
-          </button>
-
-        </div>
-
-      </div>
-
-
-      {/* WEATHER CARD */}
-
-      <div className="weatherCard">
-
-        {/* LEFT */}
-
-        <div className="left">
-
-          <h1 className="temp">
-            {Math.round(weather.main.temp)}°C
-          </h1>
-
-          <h2 className="condition">
-            {weather.weather[0].description}
+          <h2 className="sectionTitle">
+            Weather Overview
           </h2>
 
-          <div className="stats">
+          <div className="locationTime">
 
-            <div>
-              <p>Wind</p>
-              <h3>{weather.wind.speed} km/h</h3>
-            </div>
+            <span className="cityName">
+              {weather.name}
+            </span>
 
-            <div>
-              <p>Humidity</p>
-              <h3>{weather.main.humidity}%</h3>
-            </div>
+            <span className="separator">|</span>
+
+            <span className="liveTime">
+              {time.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+              })}
+            </span>
 
           </div>
 
         </div>
 
 
-        {/* CENTER ICON */}
 
-        <div className="centerIcon">
+        {/* OVERVIEW GRID */}
 
-          <div className="cloud">
-            {getIcon(weather.weather[0].main)}
+        <div className="overviewGrid">
+
+
+          {/* Temperature */}
+
+          <div className="card temperatureCard">
+
+            <div className="weatherIcon">☁</div>
+
+            <h1>{Math.round(weather.main.temp)}°C</h1>
+
+            <p>{weather.weather[0].description}</p>
+
+            <span>{weather.name}</span>
+
           </div>
 
-          {weather.weather[0].main === "Thunderstorm" &&
-            <div className="lightning">⚡</div>
-          }
+
+          {/* Air Quality */}
+
+          <div className="card airCard">
+
+            <div className="airCircle">14</div>
+
+            <p>Good air quality</p>
+
+          </div>
+
+
+          {/* Chart */}
+
+          <div className="card chartCard">
+
+            <HourlyChart hourly={hourly} />
+
+          </div>
 
         </div>
 
 
-        {/* FORECAST PANEL */}
 
-        <div className="forecast">
+        {/* HIGHLIGHTS */}
 
-          {forecast.map((day, i) => {
+        <h3 className="sectionTitle">Today's Highlight</h3>
 
-            const date = new Date(day.date);
+        <div className="highlightGrid">
 
-            return (
+          <div className="card highlight">
+            <p>Wind</p>
+            <h2>{weather.wind.speed} km/h</h2>
+          </div>
 
-              <div key={i} className="day">
+          <div className="card highlight">
+            <p>Humidity</p>
+            <h2>{weather.main.humidity}%</h2>
+          </div>
 
-                <span>
-                  {date.toLocaleDateString("en-US", { weekday: "long" })}
-                </span>
+          <div className="card highlight">
+            <p>Pressure</p>
+            <h2>{weather.main.pressure}</h2>
+          </div>
 
-                <span>
-                  {Math.round((day.max + day.min) / 2)}°
-                </span>
+          <div className="card highlight">
+            <p>Visibility</p>
+            <h2>{weather.visibility / 1000} km</h2>
+          </div>
 
-              </div>
+          <div className="card notificationCard">
 
-            )
+            <h4>GET AUTOMATIC ALERTS FOR WEATHER CHANGES</h4>
 
-          })}
+            <button className="notifyBtn">
+              Turn on notifications
+            </button>
+
+          </div>
 
         </div>
-
-      </div>
-
-
-      {/* CURRENT TIME */}
-
-      <div style={{color:"#fff", marginTop:"20px"}}>
-        Current Time: {new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}
-      </div>
-
-
-      {/* HOURLY GRAPH */}
-
-      <div className="chart">
-
-        <HourlyChart hourly={hourly} />
 
       </div>
 
     </div>
 
-  )
+  );
 
 }

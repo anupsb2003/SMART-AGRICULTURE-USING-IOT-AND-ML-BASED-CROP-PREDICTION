@@ -21,7 +21,7 @@ ChartJS.register(
 export default function HourlyChart({ hourly }) {
 
     if (!hourly || hourly.length === 0) return null;
-
+    
     const data = {
 
         labels: hourly.map(h =>
@@ -34,7 +34,7 @@ export default function HourlyChart({ hourly }) {
 
                 data: hourly.map(h => h.temp),
 
-                borderColor: "#ffb300",
+                borderColor:"#ffc107",
 
                 backgroundColor: "rgba(255,179,0,0.2)",
 
@@ -42,11 +42,9 @@ export default function HourlyChart({ hourly }) {
 
                 pointRadius: 0,
 
-                pointHoverRadius: 6,
-
-                pointBackgroundColor: "#ffb300",
-
-                borderWidth: 3
+                pointHoverRadius:8,
+pointBackgroundColor:"#ffc107",
+borderWidth:3
             }
         ]
 
@@ -88,7 +86,7 @@ export default function HourlyChart({ hourly }) {
     };
 
     return (
-        <div style={{ height: "260px" }}>
+        <div style={{height:"100%", width:"100%"}}>
             <Line data={data} options={options} />
         </div>
     );
