@@ -5,95 +5,122 @@ margin:0;
 font-family:"Inter",sans-serif;
 
 background:
-radial-gradient(circle at 80% 10%,rgba(0,255,255,0.08),transparent 60%),
+radial-gradient(circle at 20% 20%, rgba(0,255,255,0.08), transparent 50%),
 linear-gradient(135deg,#082638,#051a2a);
 
 color:white;
 }
 
-/* DASHBOARD LAYOUT */
+/* DASHBOARD */
 
 .dashboard{
-
 display:flex;
-flex-direction:column;
-
+justify-content:center;
 padding:40px;
-
-max-width:1400px;
-
-margin:auto;
-
 }
 
-/* SECTION TITLES */
+.main{
+width:100%;
+max-width:1300px;
+}
+
+/* HEADER */
+
 .weatherHeader{
 
 display:flex;
-justify-content:space-between;
 align-items:center;
+justify-content:space-between;
 
-margin-bottom:25px;
+margin-bottom:30px;
 
 }
 
-/* Title */
+/* TITLE */
 
 .sectionTitle{
-
 font-size:24px;
 font-weight:600;
-
 margin:0;
-
 }
 
-/* Right side */
+/* LOCATION + TIME */
 
 .locationTime{
+display:flex;
+align-items:center;
+gap:8px;
+font-size:18px;
+}
+
+.cityName{
+font-weight:500;
+}
+
+.separator{
+opacity:0.6;
+}
+
+.liveTime{
+font-weight:600;
+
+background:linear-gradient(90deg,#00e5ff,#4dd0e1);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+/* SEARCH BAR */
+
+.searchBar{
 
 display:flex;
 align-items:center;
-gap:10px;
 
-font-size:18px;
+background:rgba(255,255,255,0.06);
 
-opacity:0.9;
+border-radius:30px;
 
-}
+padding:6px 10px;
 
-/* City */
+backdrop-filter:blur(15px);
 
-.cityName{
-
-font-weight:500;
+border:1px solid rgba(255,255,255,0.1);
 
 }
 
-/* Separator */
+.searchBar input{
 
-.separator{
+border:none;
+outline:none;
 
-opacity:0.6;
+background:transparent;
+
+color:white;
+
+padding:6px 10px;
+
+width:200px;
 
 }
 
-/* Time */
+.searchBar button{
 
-.liveTime{
+border:none;
 
-background:linear-gradient(
-90deg,
-#00e5ff,
-#4dd0e1
-);
+background:linear-gradient(90deg,#00e5ff,#4dd0e1);
 
--webkit-background-clip:text;
-color:transparent;
+color:black;
+
+padding:6px 14px;
+
+border-radius:20px;
+
+cursor:pointer;
 
 font-weight:600;
 
 }
+
 /* OVERVIEW GRID */
 
 .overviewGrid{
@@ -120,7 +147,7 @@ gap:25px;
 
 }
 
-/* GENERAL CARD */
+/* CARD */
 
 .card{
 
@@ -143,16 +170,13 @@ backdrop-filter:blur(20px);
 
 border:1px solid rgba(255,255,255,0.08);
 
-box-shadow:
-0 15px 40px rgba(0,0,0,0.4);
+box-shadow:0 15px 40px rgba(0,0,0,0.4);
 
 transition:all .35s ease;
 
 text-align:center;
 
 }
-
-/* CARD HOVER */
 
 .card:hover{
 
@@ -192,8 +216,6 @@ font-size:40px;
 animation:floatWeather 4s ease-in-out infinite;
 
 }
-
-/* FLOAT ANIMATION */
 
 @keyframes floatWeather{
 
@@ -240,15 +262,15 @@ margin:15px auto;
 
 height:260px;
 
+display:flex;
+justify-content:center;
+align-items:center;
+
 background:linear-gradient(
 135deg,
 rgba(15,76,107,0.8),
 rgba(6,36,56,0.9)
 );
-
-display:flex;
-justify-content:center;
-align-items:center;
 
 }
 
@@ -271,12 +293,8 @@ background:linear-gradient(
 
 }
 
-/* HIGHLIGHT TEXT */
-
 .highlight h2{
-
 margin-top:10px;
-
 }
 
 /* NOTIFICATION CARD */
@@ -302,7 +320,7 @@ text-align:center;
 
 }
 
-/* NOTIFICATION BUTTON */
+/* BUTTON */
 
 .notifyBtn{
 
@@ -335,21 +353,15 @@ transform:scale(1.05);
 @media(max-width:1100px){
 
 .overviewGrid{
-
 grid-template-columns:1fr;
-
 }
 
 .highlightGrid{
-
 grid-template-columns:1fr 1fr;
-
 }
 
 .notificationCard{
-
 grid-column:span 2;
-
 }
 
 }
@@ -357,15 +369,11 @@ grid-column:span 2;
 @media(max-width:700px){
 
 .highlightGrid{
-
 grid-template-columns:1fr;
-
 }
 
 .notificationCard{
-
 grid-column:span 1;
-
 }
 
 }

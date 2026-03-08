@@ -1,117 +1,219 @@
+.homePage{
+font-family:"Inter",sans-serif;
+}
 
-.home{
+/* HERO */
+
+.heroSection{
+
 height:100vh;
-width:100%;
 
 background-size:cover;
 background-position:center;
 
 display:flex;
 flex-direction:column;
+justify-content:center;
 align-items:center;
 
 position:relative;
+
 }
 
-/* NAVBAR */
+.heroSection::before{
 
-.navbar{
+content:"";
 
 position:absolute;
-top:20px;
 
-width:90%;
-display:flex;
-justify-content:space-between;
-align-items:center;
+top:0;
+left:0;
 
-background:white;
-padding:15px 30px;
+width:100%;
+height:100%;
 
-border-radius:40px;
+background:linear-gradient(
+180deg,
+rgba(0,0,0,0.4),
+rgba(0,0,0,0.6)
+);
+
 }
-
-.logo{
-font-weight:600;
-font-size:18px;
-color:#2e7d32;
-}
-
-.menu{
-display:flex;
-gap:30px;
-}
-
-.menu a{
-cursor:pointer;
-}
-
-.startBtn{
-background:#2e7d32;
-color:white;
-
-padding:10px 20px;
-border:none;
-border-radius:25px;
-
-cursor:pointer;
-}
-
-/* HERO CONTENT */
 
 .heroContent{
 
-margin-top:200px;
+position:relative;
 
 text-align:center;
+
 color:white;
 
 max-width:700px;
+
 }
 
 .heroContent h1{
-font-size:52px;
+
+font-size:48px;
+
 margin-bottom:20px;
+
 }
 
-.heroContent p{
-font-size:18px;
-margin-bottom:30px;
+.heroContent span{
+
+color:#00e5ff;
+
 }
 
-.buttons{
+.heroButtons{
+
+margin-top:25px;
+
 display:flex;
 gap:20px;
 justify-content:center;
+
 }
 
-.exploreBtn{
-background:#2e7d32;
+.primaryBtn{
+
+background:#00e5ff;
+border:none;
+
+padding:12px 25px;
+
+border-radius:25px;
+
+font-weight:600;
+
+cursor:pointer;
+
+}
+
+.secondaryBtn{
+
+background:transparent;
+
+border:2px solid white;
+
 color:white;
 
-padding:14px 26px;
-border:none;
-border-radius:30px;
+padding:12px 25px;
+
+border-radius:25px;
 
 cursor:pointer;
+
 }
 
-.learnBtn{
-background:rgba(255,255,255,0.8);
 
-padding:14px 26px;
-border:none;
-border-radius:30px;
+/* STATS */
 
-cursor:pointer;
+.statsSection{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:30px;
+
+padding:80px 10%;
+
+background:#071a2a;
+
+color:white;
+
+text-align:center;
+
 }
-.section{
-  height:100vh;
-  padding:80px;
-  background:white;
+
+.statCard h2{
+
+font-size:36px;
+
+color:#00e5ff;
+
 }
 
-.section h2{
-  font-size:40px;
-  margin-bottom:20px;
+
+/* WEATHER */
+
+.weatherSection{
+
+padding:80px 10%;
+
+background:#051a2a;
+
+color:white;
+
+text-align:center;
+
+}
+
+.sectionHeading{
+
+font-size:32px;
+
+margin-bottom:10px;
+
+}
+
+.sectionSub{
+
+opacity:0.8;
+
+margin-bottom:40px;
+
+}
+
+
+/* FEATURES */
+
+.featuresSection{
+
+padding:80px 10%;
+
+background:#082638;
+
+color:white;
+
+}
+
+.featureGrid{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:25px;
+
+margin-top:40px;
+
+}
+
+.featureCard{
+
+background:rgba(255,255,255,0.05);
+
+padding:30px;
+
+border-radius:18px;
+
+text-align:center;
+
+backdrop-filter:blur(10px);
+
+border:1px solid rgba(255,255,255,0.08);
+
+transition:.3s;
+
+}
+
+.featureCard:hover{
+
+transform:translateY(-6px);
+
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
+
 }
