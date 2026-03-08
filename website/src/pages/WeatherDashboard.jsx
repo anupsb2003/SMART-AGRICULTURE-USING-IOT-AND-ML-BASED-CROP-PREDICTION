@@ -7,9 +7,11 @@ export default function WeatherDashboard() {
 
   const API = import.meta.env.VITE_WEATHER_API;
 
+  const [city, setCity] = useState("Bangalore");
   const [weather, setWeather] = useState(null);
   const [hourly, setHourly] = useState([]);
   const [time, setTime] = useState(new Date());
+
 
 
   /* LIVE CLOCK */
@@ -28,12 +30,12 @@ export default function WeatherDashboard() {
 
   /* LOAD WEATHER */
 
-  const loadWeather = async (city) => {
+  const loadWeather = async (cityName) => {
 
     try {
 
       const current = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${API}`
       );
 
       setWeather(current.data);
@@ -52,15 +54,11 @@ export default function WeatherDashboard() {
       const now = new Date();
 
 
-      /* Convert API data */
-
       const hourlyData = times.map((t, i) => ({
         dt: new Date(t).getTime() / 1000,
         temp: temps[i]
       }));
 
-
-      /* Find index of current hour */
 
       const currentIndex = times.findIndex(t => {
 
@@ -74,10 +72,7 @@ export default function WeatherDashboard() {
       });
 
 
-      /* Last 24 hours ending now */
-
       let start = currentIndex - 23;
-
       if (start < 0) start = 0;
 
       const last24 = hourlyData.slice(start, currentIndex + 1);
@@ -93,21 +88,32 @@ export default function WeatherDashboard() {
   };
 
 
-  /* INITIAL LOAD + AUTO UPDATE EVERY HOUR */
+
+  /* INITIAL LOAD + AUTO UPDATE */
 
   useEffect(() => {
 
-    loadWeather("Bangalore");
+    loadWeather(city);
 
     const interval = setInterval(() => {
-
-      loadWeather("Bangalore");
-
-    }, 3600000); // 1 hour
+      loadWeather(city);
+    }, 3600000); // every hour
 
     return () => clearInterval(interval);
 
-  }, []);
+  }, [city]);
+
+
+
+  /* SEARCH */
+
+  const searchCity = () => {
+
+    if (city.trim() !== "") {
+      loadWeather(city);
+    }
+
+  };
 
 
 
@@ -129,6 +135,27 @@ export default function WeatherDashboard() {
             Weather Overview
           </h2>
 
+
+          {/* SEARCH BAR */}
+
+          <div className="searchBar">
+
+            <input
+              type="text"
+              placeholder="Search location..."
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
+
+            <button onClick={searchCity}>
+              Search
+            </button>
+
+          </div>
+
+
+          {/* LOCATION + TIME */}
+
           <div className="locationTime">
 
             <span className="cityName">
@@ -138,11 +165,13 @@ export default function WeatherDashboard() {
             <span className="separator">|</span>
 
             <span className="liveTime">
+
               {time.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
                 second: "2-digit"
               })}
+
             </span>
 
           </div>
@@ -155,8 +184,7 @@ export default function WeatherDashboard() {
 
         <div className="overviewGrid">
 
-
-          {/* Temperature */}
+          {/* TEMPERATURE */}
 
           <div className="card temperatureCard">
 
@@ -171,7 +199,7 @@ export default function WeatherDashboard() {
           </div>
 
 
-          {/* Air Quality */}
+          {/* AIR QUALITY */}
 
           <div className="card airCard">
 
@@ -182,7 +210,7 @@ export default function WeatherDashboard() {
           </div>
 
 
-          {/* Chart */}
+          {/* CHART */}
 
           <div className="card chartCard">
 
@@ -196,7 +224,10 @@ export default function WeatherDashboard() {
 
         {/* HIGHLIGHTS */}
 
-        <h3 className="sectionTitle">Today's Highlight</h3>
+        <h3 className="sectionTitle">
+          Today's Highlight
+        </h3>
+
 
         <div className="highlightGrid">
 
@@ -220,9 +251,12 @@ export default function WeatherDashboard() {
             <h2>{weather.visibility / 1000} km</h2>
           </div>
 
+
           <div className="card notificationCard">
 
-            <h4>GET AUTOMATIC ALERTS FOR WEATHER CHANGES</h4>
+            <h4>
+              GET AUTOMATIC ALERTS FOR WEATHER CHANGES
+            </h4>
 
             <button className="notifyBtn">
               Turn on notifications
