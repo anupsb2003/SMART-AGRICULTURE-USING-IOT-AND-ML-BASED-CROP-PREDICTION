@@ -19,6 +19,9 @@ style={styles.container}
 resizeMode="cover"
 >
 
+{/* DARK OVERLAY */}
+<View style={styles.overlay}>
+
 {/* NAVBAR */}
 <Navbar navigation={navigation} title="Agro Grow" />
 
@@ -27,19 +30,24 @@ resizeMode="cover"
 <View style={styles.hero}>
 
 <Text style={styles.title}>
-Advancing Modern Agriculture
+Smart Agriculture
+</Text>
+
+<Text style={styles.title}>
+Powered by <Text style={styles.highlight}>AI & IoT</Text>
 </Text>
 
 <Text style={styles.subtitle}>
-IoT powered smart farming helps farmers monitor
-soil, weather and crops in real time.
+Monitor soil moisture, weather patterns, and crop health
+in real-time using intelligent sensors and AI-powered
+analytics to maximize agricultural productivity.
 </Text>
 
 <View style={styles.buttons}>
 
 <TouchableOpacity style={styles.exploreBtn}>
-<Text style={styles.btnText}>
-Explore Solutions →
+<Text style={styles.exploreText}>
+Explore Solutions
 </Text>
 </TouchableOpacity>
 
@@ -53,61 +61,86 @@ Learn More
 
 </View>
 
+</View>
+
 </ImageBackground>
 
 )
 
 }
+
 const styles = StyleSheet.create({
 
 container:{
 flex:1
 },
 
+/* IMAGE OVERLAY */
+
+overlay:{
+flex:1,
+backgroundColor:'rgba(1, 10, 14, 0.55)'
+},
+
+/* HERO SECTION */
+
 hero:{
 flex:1,
 justifyContent:'center',
 alignItems:'center',
-padding:30
+paddingHorizontal:30
 },
 
 title:{
-fontSize:32,
-fontWeight:'bold',
-color:'white',
+fontSize:36,
+fontWeight:'700',
+color:'#ffffff',
 textAlign:'center'
+},
+
+highlight:{
+color:'#23d4e2'
 },
 
 subtitle:{
-color:'white',
-marginTop:10,
-textAlign:'center'
+color:'#e6f3f7',
+marginTop:15,
+textAlign:'center',
+fontSize:15,
+lineHeight:22
 },
+
+/* BUTTONS */
 
 buttons:{
 flexDirection:'row',
-marginTop:20
+marginTop:30
 },
 
 exploreBtn:{
-backgroundColor:'#2e7d32',
-padding:12,
-borderRadius:20,
-marginRight:10
+backgroundColor:'#22c9da',
+paddingVertical:14,
+paddingHorizontal:28,
+borderRadius:30,
+marginRight:15
+},
+
+exploreText:{
+color:'#00161f',
+fontWeight:'600'
 },
 
 learnBtn:{
-backgroundColor:'white',
-padding:12,
-borderRadius:20
-},
-
-btnText:{
-color:'white'
+borderWidth:2,
+borderColor:'#ffffff',
+paddingVertical:14,
+paddingHorizontal:28,
+borderRadius:30
 },
 
 learnText:{
-color:'#333'
+color:'#ffffff',
+fontWeight:'600'
 }
 
 });
