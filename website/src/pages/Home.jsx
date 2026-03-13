@@ -7,6 +7,7 @@ import About from "../components/About";
 import Solutions from "../components/Solutions";
 import Blog from "../components/Blog";
 import Contact from "../components/Contact";
+import CropPrediction from "../components/CropPrediction";
 
 export default function Home() {
 
@@ -98,6 +99,7 @@ export default function Home() {
         </p>
 
         <WeatherDashboard />
+        <CropPrediction />
 
       </section>
 
