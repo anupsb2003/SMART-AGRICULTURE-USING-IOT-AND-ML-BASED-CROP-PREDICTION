@@ -7,6 +7,7 @@ import SolutionsScreen from '../screens/SolutionsScreen';
 import WeatherScreen from '../screens/WeatherScreen';
 import BlogScreen from '../screens/BlogScreen';
 import ContactScreen from '../screens/ContactScreen';
+import CropPredictionScreen from '../screens/CropPredictionScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -24,6 +25,7 @@ export default function DrawerNavigator() {
     >
 
       <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="CropPrediction" component={CropPredictionScreen} />
       <Drawer.Screen name="About" component={AboutScreen} />
       <Drawer.Screen name="Solutions" component={SolutionsScreen} />
       <Drawer.Screen name="Weather Dashboard" component={WeatherScreen} />
