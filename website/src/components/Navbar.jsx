@@ -10,15 +10,12 @@ export default function Navbar() {
       </div>
 
       <div className="menu">
-        <Link to="home" smooth={true} duration={500}>Home</Link>
-
-        <Link to="about" smooth={true} duration={500}>About</Link>
-
-        <Link to="solutions" smooth={true} duration={500}>Solutions</Link>
-
-        <Link to="blog" smooth={true} duration={500}>Blog</Link>
-
-        <Link to="contact" smooth={true} duration={500}>Contact Us</Link>
+        <Link to="Home" smooth duration={500}>Home</Link>
+        <Link to="about" smooth duration={500}>About</Link>
+<Link to="solutions" smooth duration={500}>Solutions</Link>
+<Link to="blog" smooth duration={500}>Blog</Link>
+<Link to="contact" smooth duration={500}>Contact</Link>
+<Link to="cropPrediction" smooth duration={500}>Crop Prediction</Link>
 
       </div>
 
