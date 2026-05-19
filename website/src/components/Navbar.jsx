@@ -12,11 +12,10 @@ export default function Navbar() {
       <div className="menu">
         <Link to="Home" smooth duration={500}>Home</Link>
         <Link to="about" smooth duration={500}>About</Link>
-<Link to="solutions" smooth duration={500}>Solutions</Link>
-<Link to="blog" smooth duration={500}>Blog</Link>
-<Link to="contact" smooth duration={500}>Contact</Link>
-<Link to="cropPrediction" smooth duration={500}>Crop Prediction</Link>
-
+        <Link to="solutions" smooth duration={500}>Solutions</Link>
+        <Link to="blog" smooth duration={500}>Blog</Link>
+        <Link to="contact" smooth duration={500}>Contact</Link>
+        <Link to="cropPrediction" smooth duration={500}>Crop Prediction</Link>
       </div>
 
       <button className="startBtn">

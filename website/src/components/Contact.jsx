@@ -1,20 +1,45 @@
+import "./Contact.css";
+
 export default function Contact() {
   return (
-    <section id="contact" style={{ padding: "80px", textAlign: "center" }}>
 
-      <h2>Contact Us</h2>
+    <section
+      id="contact"
+      className="contact-section"
+    >
 
-      <form style={{ display: "flex", flexDirection: "column", gap: "10px", width: "300px", margin: "auto" }}>
+      <div className="contact-card">
 
-        <input type="text" placeholder="Your Name" />
+        <h2 className="contact-title">
+          Contact Us
+        </h2>
 
-        <input type="email" placeholder="Email Address" />
+        <form className="contact-form">
 
-        <textarea placeholder="Your Message"></textarea>
+          <input
+            className="contact-input"
+            type="text"
+            placeholder="Your Name"
+          />
 
-        <button>Send Message</button>
+          <input
+            className="contact-input"
+            type="email"
+            placeholder="Email Address"
+          />
 
-      </form>
+          <textarea
+            className="contact-textarea"
+            placeholder="Your Message"
+          ></textarea>
+
+          <button className="contact-button">
+            Send Message
+          </button>
+
+        </form>
+
+      </div>
 
     </section>
   );

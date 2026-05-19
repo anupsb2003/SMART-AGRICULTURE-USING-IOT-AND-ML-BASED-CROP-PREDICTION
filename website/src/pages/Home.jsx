@@ -1,4 +1,7 @@
+
+import { useState } from "react";
 import "./Home.css";
+
 import farm from "../assets/farm.png";
 
 import WeatherDashboard from "./WeatherDashboard";
@@ -8,13 +11,16 @@ import Solutions from "../components/Solutions";
 import Blog from "../components/Blog";
 import Contact from "../components/Contact";
 import CropPrediction from "../components/CropPrediction";
+import Chatbot from "../components/Chatbot";
+import LiveData from "../components/LiveData";
 
 export default function Home() {
+
+  const [open, setOpen] = useState(false);
 
   return (
 
     <div className="homePage">
-
 
       {/* HERO SECTION */}
 
@@ -25,6 +31,8 @@ export default function Home() {
       >
 
         <Navbar />
+
+        <div className="heroOverlay"></div>
 
         <div className="heroContent">
 
@@ -55,8 +63,6 @@ export default function Home() {
 
       </section>
 
-
-
       {/* STATS SECTION */}
 
       <section className="statsSection">
@@ -83,9 +89,7 @@ export default function Home() {
 
       </section>
 
-
-
-      {/* WEATHER DASHBOARD */}
+      {/* WEATHER */}
 
       <section className="weatherSection">
 
@@ -94,18 +98,17 @@ export default function Home() {
         </h2>
 
         <p className="sectionSub">
-          Real-time weather insights help farmers make
-          smarter irrigation and crop management decisions.
+          Real-time weather insights help farmers make smarter
+          irrigation and crop management decisions.
         </p>
 
         <WeatherDashboard />
-        <CropPrediction />
+
+          <LiveData/>
 
       </section>
 
-
-
-      {/* FEATURES SECTION */}
+      {/* FEATURES */}
 
       <section className="featuresSection">
 
@@ -116,8 +119,10 @@ export default function Home() {
         <div className="featureGrid">
 
           <div className="featureCard">
-            🌱
+            <div className="featureIcon">🌱</div>
+
             <h3>Soil Monitoring</h3>
+
             <p>
               Track soil moisture, nutrients, and temperature
               to optimize crop growth conditions.
@@ -125,8 +130,10 @@ export default function Home() {
           </div>
 
           <div className="featureCard">
-            ☁️
+            <div className="featureIcon">☁️</div>
+
             <h3>Weather Prediction</h3>
+
             <p>
               AI-powered weather forecasting helps farmers
               plan irrigation and harvest cycles effectively.
@@ -134,8 +141,10 @@ export default function Home() {
           </div>
 
           <div className="featureCard">
-            📡
+            <div className="featureIcon">📡</div>
+
             <h3>IoT Sensors</h3>
+
             <p>
               Smart sensors collect real-time field data
               and transmit it directly to your dashboard.
@@ -143,8 +152,10 @@ export default function Home() {
           </div>
 
           <div className="featureCard">
-            📊
+            <div className="featureIcon">📊</div>
+
             <h3>AI Analytics</h3>
+
             <p>
               Machine learning analyzes crop and weather
               patterns for predictive agriculture insights.
@@ -155,18 +166,33 @@ export default function Home() {
 
       </section>
 
-
-
-      {/* EXISTING COMPONENTS */}
-
+      {/* OTHER COMPONENTS */}
       <About />
       <Solutions />
       <Blog />
       <Contact />
+      <CropPrediction />
 
+      {/* FLOATING CHATBOT */}
+
+      <div className="chatbotFloating">
+
+        <button
+          className="chatbotToggle"
+          onClick={() => setOpen(!open)}
+        >
+          {open ? "✖" : "💬"}
+        </button>
+
+        {open && (
+          <div className="chatbotModal">
+            <Chatbot />
+          </div>
+        )}
+
+      </div>
 
     </div>
 
   );
-
 }

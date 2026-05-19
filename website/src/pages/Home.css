@@ -1,219 +1,400 @@
 .homePage{
-font-family:"Inter",sans-serif;
+  font-family:"Inter",sans-serif;
 }
 
 /* HERO */
 
 .heroSection{
+  height:100vh;
 
-height:100vh;
+  background-size:cover;
+  background-position:center;
 
-background-size:cover;
-background-position:center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
+  position:relative;
 
-position:relative;
-
+  overflow:hidden;
 }
 
 .heroSection::before{
+  content:"";
 
-content:"";
+  position:absolute;
 
-position:absolute;
+  top:0;
+  left:0;
 
-top:0;
-left:0;
+  width:100%;
+  height:100%;
 
-width:100%;
-height:100%;
-
-background:linear-gradient(
-180deg,
-rgba(0,0,0,0.4),
-rgba(0,0,0,0.6)
-);
-
+  background:linear-gradient(
+    180deg,
+    rgba(0,0,0,0.4),
+    rgba(0,0,0,0.7)
+  );
 }
 
 .heroContent{
+  position:relative;
 
-position:relative;
+  text-align:center;
 
-text-align:center;
+  color:white;
 
-color:white;
+  max-width:750px;
 
-max-width:700px;
+  padding:20px;
 
+  z-index:2;
 }
 
 .heroContent h1{
+  font-size:56px;
 
-font-size:48px;
+  margin-bottom:20px;
 
-margin-bottom:20px;
+  line-height:1.2;
 
+  font-weight:700;
 }
 
 .heroContent span{
+  color:#00e5ff;
+}
 
-color:#00e5ff;
+.heroContent p{
+  font-size:18px;
 
+  line-height:1.7;
+
+  opacity:0.9;
 }
 
 .heroButtons{
+  margin-top:30px;
 
-margin-top:25px;
+  display:flex;
+  gap:20px;
+  justify-content:center;
 
-display:flex;
-gap:20px;
-justify-content:center;
-
+  flex-wrap:wrap;
 }
 
+/* BUTTONS */
+
 .primaryBtn{
+  background:#00e5ff;
 
-background:#00e5ff;
-border:none;
+  border:none;
 
-padding:12px 25px;
+  padding:14px 30px;
 
-border-radius:25px;
+  border-radius:30px;
 
-font-weight:600;
+  font-weight:600;
 
-cursor:pointer;
+  cursor:pointer;
 
+  font-size:16px;
+
+  transition:0.3s ease;
+
+  box-shadow:0 6px 20px rgba(0,229,255,0.3);
+}
+
+.primaryBtn:hover{
+  transform:translateY(-3px);
+
+  background:#00c4de;
 }
 
 .secondaryBtn{
+  background:transparent;
 
-background:transparent;
+  border:2px solid white;
 
-border:2px solid white;
+  color:white;
 
-color:white;
+  padding:14px 30px;
 
-padding:12px 25px;
+  border-radius:30px;
 
-border-radius:25px;
+  cursor:pointer;
 
-cursor:pointer;
+  font-size:16px;
 
+  transition:0.3s ease;
 }
 
+.secondaryBtn:hover{
+  background:white;
+
+  color:#051a2a;
+}
 
 /* STATS */
 
 .statsSection{
+  display:grid;
 
-display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 
-grid-template-columns:repeat(4,1fr);
+  gap:30px;
 
-gap:30px;
+  padding:80px 10%;
 
-padding:80px 10%;
+  background:#071a2a;
 
-background:#071a2a;
+  color:white;
 
-color:white;
+  text-align:center;
+}
 
-text-align:center;
+.statCard{
+  background:rgba(255,255,255,0.05);
 
+  padding:35px 25px;
+
+  border-radius:22px;
+
+  backdrop-filter:blur(10px);
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  transition:0.3s ease;
+}
+
+.statCard:hover{
+  transform:translateY(-6px);
+
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
 
 .statCard h2{
+  font-size:42px;
 
-font-size:36px;
+  color:#00e5ff;
 
-color:#00e5ff;
-
+  margin-bottom:10px;
 }
 
+.statCard p{
+  opacity:0.85;
+
+  line-height:1.6;
+}
 
 /* WEATHER */
 
 .weatherSection{
+  padding:90px 10%;
 
-padding:80px 10%;
+  background:#051a2a;
 
-background:#051a2a;
+  color:white;
 
-color:white;
-
-text-align:center;
-
+  text-align:center;
 }
 
 .sectionHeading{
+  font-size:40px;
 
-font-size:32px;
+  margin-bottom:15px;
 
-margin-bottom:10px;
-
+  font-weight:700;
 }
 
 .sectionSub{
+  opacity:0.8;
 
-opacity:0.8;
+  margin-bottom:50px;
 
-margin-bottom:40px;
+  font-size:17px;
 
+  line-height:1.7;
+
+  max-width:800px;
+
+  margin-left:auto;
+  margin-right:auto;
 }
-
 
 /* FEATURES */
 
 .featuresSection{
+  padding:90px 10%;
 
-padding:80px 10%;
+  background:#082638;
 
-background:#082638;
-
-color:white;
-
+  color:white;
 }
 
 .featureGrid{
+  display:grid;
 
-display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 
-grid-template-columns:repeat(4,1fr);
+  gap:30px;
 
-gap:25px;
-
-margin-top:40px;
-
+  margin-top:50px;
 }
 
 .featureCard{
+  background:rgba(255,255,255,0.05);
 
-background:rgba(255,255,255,0.05);
+  padding:35px 30px;
 
-padding:30px;
+  border-radius:22px;
 
-border-radius:18px;
+  text-align:center;
 
-text-align:center;
+  backdrop-filter:blur(10px);
 
-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.08);
 
-border:1px solid rgba(255,255,255,0.08);
-
-transition:.3s;
-
+  transition:.3s ease;
 }
 
 .featureCard:hover{
+  transform:translateY(-8px);
 
-transform:translateY(-6px);
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
 
-box-shadow:0 10px 30px rgba(0,0,0,0.5);
+.featureCard h3{
+  margin:18px 0 12px;
 
+  font-size:24px;
+
+  color:#00e5ff;
+}
+
+.featureCard p{
+  line-height:1.7;
+
+  opacity:0.85;
+}
+
+.featureIcon{
+  font-size:55px;
+}
+
+/* FLOATING CHATBOT */
+
+.chatbotFloating{
+  position:fixed;
+
+  bottom:25px;
+  right:25px;
+
+  z-index:9999;
+}
+
+/* CHAT BUTTON */
+
+.chatbotToggle{
+  width:70px;
+  height:70px;
+
+  border:none;
+
+  border-radius:50%;
+
+  background:#00e5ff;
+
+  color:#051a2a;
+
+  font-size:32px;
+
+  cursor:pointer;
+
+  font-weight:bold;
+
+  box-shadow:0 8px 25px rgba(0,0,0,0.35);
+
+  transition:0.3s ease;
+}
+
+.chatbotToggle:hover{
+  transform:scale(1.08);
+
+  background:#00c4de;
+}
+
+/* CHAT MODAL */
+
+.chatbotModal{
+  position:absolute;
+
+  bottom:90px;
+  right:0;
+
+  width:420px;
+  height:650px;
+
+  border-radius:28px;
+
+  overflow:hidden;
+
+  animation:popup 0.3s ease;
+
+  box-shadow:0 10px 40px rgba(0,0,0,0.45);
+}
+
+/* ANIMATION */
+
+@keyframes popup{
+  from{
+    opacity:0;
+    transform:translateY(20px) scale(0.95);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .heroContent h1{
+    font-size:38px;
+  }
+
+  .heroContent p{
+    font-size:16px;
+  }
+
+  .heroButtons{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .sectionHeading{
+    font-size:30px;
+  }
+
+  .featureGrid{
+    grid-template-columns:1fr;
+  }
+
+  .chatbotModal{
+    width:95vw;
+    height:80vh;
+
+    right:-10px;
+  }
+
+  .chatbotToggle{
+    width:60px;
+    height:60px;
+
+    font-size:28px;
+  }
 }

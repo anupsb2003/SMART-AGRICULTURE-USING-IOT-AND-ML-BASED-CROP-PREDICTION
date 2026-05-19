@@ -8,7 +8,7 @@ import WeatherScreen from '../screens/WeatherScreen';
 import BlogScreen from '../screens/BlogScreen';
 import ContactScreen from '../screens/ContactScreen';
 import CropPredictionScreen from '../screens/CropPredictionScreen';
-
+import ChatbotScreen from '../screens/ChatbotScreen';
 const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigator() {
@@ -31,7 +31,7 @@ export default function DrawerNavigator() {
       <Drawer.Screen name="Weather Dashboard" component={WeatherScreen} />
       <Drawer.Screen name="Blog" component={BlogScreen} />
       <Drawer.Screen name="Contact" component={ContactScreen} />
-
+      <Drawer.Screen name="Chatbot" component={ChatbotScreen} />
     </Drawer.Navigator>
 
   );
